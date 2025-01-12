@@ -3,3 +3,4 @@ import streamlit as st
 
 # タイトルをつける。
 st.title('計算＆漢字クイズアプリ')
+#プログラム↓
