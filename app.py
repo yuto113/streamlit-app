@@ -29,10 +29,10 @@ if st.button('計算の問題出題(引き算～ー～)'):
     st.session_state.cc = ran.randint(1, 100)
     st.session_state.dd = ran.randint(1, 100)
 
-st.write(st.session_state.cc, '-', st.session_state.dd)
+st.write(max(st.session_state.cc, st.session_state.dd), '-', min(st.session_state.cc, st.session_state.dd))
 
 if st.button('こたえ (引き算)'):
-    st.session_state.ancerb = st.session_state.cc - st.session_state.dd
+    st.session_state.ancerb = abs(st.session_state.cc - st.session_state.dd)
     st.write(st.session_state.ancerb)
 
 # 計算の問題出題(掛け算～✖～)
