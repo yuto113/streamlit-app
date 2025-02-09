@@ -3,7 +3,7 @@ import random as ran
 # 作るもの：＠計算＆漢字クイズアプリ＠
 
 # タイトルをつける。
-st.title('計算＆漢字クイズアプリ')
+st.title('計算問題アプリ')
 
 # 計算の問題出題(足し算～＋～)
 if 'aa' not in st.session_state:
