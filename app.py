@@ -50,17 +50,17 @@ if st.button('こたえ (掛け算)'):
     st.session_state.ancerc = st.session_state.ee * st.session_state.ff
     st.write(st.session_state.ancerc)
 
-# 計算の問題出題(割り算～➗～)
+# 計算の問題出題(割り算～÷～)
 if 'gg' not in st.session_state:
     st.session_state.gg = ran.randint(1, 100)
     st.session_state.hh = ran.randint(1, 100)
 
-if st.button('計算の問題出題(割り算～➗～)'):
+if st.button('計算の問題出題(割り算～÷～)'):
     st.session_state.gg = ran.randint(1, 100)
     st.session_state.hh = ran.randint(1, 100)
 
-st.write(st.session_state.gg, '➗', st.session_state.hh)
+st.write(st.session_state.gg, '÷', st.session_state.hh)
 
 if st.button('こたえ (割り算)'):
-    st.session_state.ancerd = st.session_state.gg / st.session_state.hh
+    st.session_state.ancerd = round(st.session_state.gg / st.session_state.hh, 1)
     st.write(st.session_state.ancerd)
