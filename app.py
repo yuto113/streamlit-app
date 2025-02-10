@@ -80,21 +80,81 @@ if st.button('こたえ (1桁×1桁の掛け算)'):
     st.session_state.ancerf = st.session_state.ii * st.session_state.jj
     st.write(st.session_state.ancerf)
 
-# 計算の問題出題(割り算～÷～)
+# 計算の問題出題(1桁×2桁の掛け算～✖～)
 if 'kk' not in st.session_state:
-    st.session_state.kk = ran.randint(1, 100)
-    st.session_state.ll = ran.randint(1, 100)
+    st.session_state.kk = ran.randint(1, 9)
+    st.session_state.ll = ran.randint(10, 99)
+
+if st.button('計算の問題出題(1桁×2桁の掛け算～✖～)'):
+    st.session_state.kk = ran.randint(1, 9)
+    st.session_state.ll = ran.randint(10, 99)
+
+st.write(st.session_state.kk, '✖', st.session_state.ll)
+
+if st.button('こたえ (1桁×2桁の掛け算)'):
+    st.session_state.ancerg = st.session_state.kk * st.session_state.ll
+    st.write(st.session_state.ancerg)
+
+# 計算の問題出題(2桁×2桁の掛け算～✖～)
+if 'mm' not in st.session_state:
+    st.session_state.mm = ran.randint(10, 99)
+    st.session_state.nn = ran.randint(10, 99)
+
+if st.button('計算の問題出題(2桁×2桁の掛け算～✖～)'):
+    st.session_state.mm = ran.randint(10, 99)
+    st.session_state.nn = ran.randint(10, 99)
+
+st.write(st.session_state.mm, '✖', st.session_state.nn)
+
+if st.button('こたえ (2桁×2桁の掛け算)'):
+    st.session_state.ancerh = st.session_state.mm * st.session_state.nn
+    st.write(st.session_state.ancerh)
+
+# 計算の問題出題(マイナスの掛け算～✖～)
+if 'oo' not in st.session_state:
+    st.session_state.oo = ran.randint(-99, 99)
+    st.session_state.pp = ran.randint(-99, 99)
+
+if st.button('計算の問題出題(マイナスの掛け算～✖～)'):
+    st.session_state.oo = ran.randint(-99, 99)
+    st.session_state.pp = ran.randint(-99, 99)
+
+st.write(st.session_state.oo, '✖', st.session_state.pp)
+
+if st.button('こたえ (マイナスの掛け算)'):
+    st.session_state.anceri = st.session_state.oo * st.session_state.pp
+    st.write(st.session_state.anceri)
+
+# 計算の問題出題(すべての掛け算～✖～)
+if 'qq' not in st.session_state:
+    st.session_state.qq = ran.randint(-99, 99)
+    st.session_state.rr = ran.randint(-99, 99)
+
+if st.button('計算の問題出題(すべての掛け算～✖～)'):
+    st.session_state.qq = ran.randint(-99, 99)
+    st.session_state.rr = ran.randint(-99, 99)
+
+st.write(st.session_state.qq, '✖', st.session_state.rr)
+
+if st.button('こたえ (すべての掛け算)'):
+    st.session_state.ancerj = st.session_state.qq * st.session_state.rr
+    st.write(st.session_state.ancerj)
+
+# 計算の問題出題(割り算～÷～)
+if 'ss' not in st.session_state:
+    st.session_state.ss = ran.randint(1, 100)
+    st.session_state.tt = ran.randint(1, 100)
 
 if st.button('計算の問題出題(割り算～÷～)'):
-    st.session_state.kk = ran.randint(1, 100)
-    st.session_state.ll = ran.randint(1, 100)
+    st.session_state.ss = ran.randint(1, 100)
+    st.session_state.tt = ran.randint(1, 100)
 
-st.write(st.session_state.kk, '÷', st.session_state.ll)
+st.write(st.session_state.ss, '÷', st.session_state.tt)
 
 if st.button('こたえ (割り算)'):
-    result = st.session_state.kk / st.session_state.ll
+    result = st.session_state.ss / st.session_state.tt
     if result.is_integer():
-        st.session_state.ancerg = int(result)
+        st.session_state.ancerk = int(result)
     else:
-        st.session_state.ancerg = f"{round(result, 5)}..."
-    st.write(st.session_state.ancerg)
+        st.session_state.ancerk = f"{round(result, 5)}..."
+    st.write(st.session_state.ancerk)
