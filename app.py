@@ -62,5 +62,5 @@ if st.button('計算の問題出題(割り算～÷～)'):
 st.write(st.session_state.gg, '÷', st.session_state.hh)
 
 if st.button('こたえ (割り算)'):
-    st.session_state.ancerd = round(st.session_state.gg / st.session_state.hh, 1)
+    st.session_state.ancerd = round(st.session_state.gg / st.session_state.hh, 10)
     st.write(st.session_state.ancerd)
