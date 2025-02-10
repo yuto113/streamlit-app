@@ -6,7 +6,7 @@ import random as ran
 st.markdown("""
     <style>
     .stButton>button {
-        background-color: #4CAF50; /* グリーン */
+        background-image: linear-gradient(to right, #ff7e5f, #feb47b); /* グラデーション */
         color: white;
         border: none;
         padding: 15px 32px;
@@ -17,9 +17,11 @@ st.markdown("""
         margin: 4px 2px;
         cursor: pointer;
         border-radius: 12px;
+        transition: transform 0.2s; /* アニメーション */
     }
     .stButton>button:hover {
-        background-color: #45a049;
+        background-image: linear-gradient(to right, #feb47b, #ff7e5f); /* ホバー時のグラデーション */
+        transform: scale(1.1); /* ホバー時の拡大 */
     }
     </style>
     """, unsafe_allow_html=True)
