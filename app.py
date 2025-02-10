@@ -110,29 +110,14 @@ if st.button('こたえ (2桁×2桁の掛け算)'):
     st.session_state.ancerh = st.session_state.mm * st.session_state.nn
     st.write(st.session_state.ancerh)
 
-# 計算の問題出題(マイナスの掛け算～✖～)
-if 'oo' not in st.session_state:
-    st.session_state.oo = ran.randint(-99, 99)
-    st.session_state.pp = ran.randint(-99, 99)
-
-if st.button('計算の問題出題(マイナスの掛け算～✖～)'):
-    st.session_state.oo = ran.randint(-99, 99)
-    st.session_state.pp = ran.randint(-99, 99)
-
-st.write(st.session_state.oo, '✖', st.session_state.pp)
-
-if st.button('こたえ (マイナスの掛け算)'):
-    st.session_state.anceri = st.session_state.oo * st.session_state.pp
-    st.write(st.session_state.anceri)
-
 # 計算の問題出題(すべての掛け算～✖～)
 if 'qq' not in st.session_state:
-    st.session_state.qq = ran.randint(-99, 99)
-    st.session_state.rr = ran.randint(-99, 99)
+    st.session_state.qq = ran.randint(1, 99)
+    st.session_state.rr = ran.randint(1, 99)
 
 if st.button('計算の問題出題(すべての掛け算～✖～)'):
-    st.session_state.qq = ran.randint(-99, 99)
-    st.session_state.rr = ran.randint(-99, 99)
+    st.session_state.qq = ran.randint(1, 99)
+    st.session_state.rr = ran.randint(1, 99)
 
 st.write(st.session_state.qq, '✖', st.session_state.rr)
 
