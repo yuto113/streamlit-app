@@ -65,18 +65,18 @@ if st.button('こたえ (繰り下がりのある引き算)'):
     st.session_state.ancerd = abs(st.session_state.gg - st.session_state.hh)
     st.write(st.session_state.ancerd)
 
-# 計算の問題出題(掛け算～✖～)
+# 計算の問題出題(1桁×1桁の掛け算～✖～)
 if 'ii' not in st.session_state:
-    st.session_state.ii = ran.randint(1, 100)
-    st.session_state.jj = ran.randint(1, 100)
+    st.session_state.ii = ran.randint(1, 9)
+    st.session_state.jj = ran.randint(1, 9)
 
-if st.button('計算の問題出題(掛け算～✖～)'):
-    st.session_state.ii = ran.randint(1, 100)
-    st.session_state.jj = ran.randint(1, 100)
+if st.button('計算の問題出題(1桁×1桁の掛け算～✖～)'):
+    st.session_state.ii = ran.randint(1, 9)
+    st.session_state.jj = ran.randint(1, 9)
 
 st.write(st.session_state.ii, '✖', st.session_state.jj)
 
-if st.button('こたえ (掛け算)'):
+if st.button('こたえ (1桁×1桁の掛け算)'):
     st.session_state.ancerf = st.session_state.ii * st.session_state.jj
     st.write(st.session_state.ancerf)
 
