@@ -60,7 +60,7 @@ if st.button('計算(けいさん)の問題出題(もんだいしゅつだい)')
         st.session_state.tt = ran.randint(1, 100)
         st.session_state.problem = f"{st.session_state.ss} ÷ {st.session_state.tt}"
 
-    st.write(st.session_state.problem)
+    st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem}</h2>", unsafe_allow_html=True)
 
 # 答えを表示するボタン
 if st.button('こたえ'):
