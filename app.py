@@ -2,6 +2,28 @@ import streamlit as st
 import random as ran
 # 作るもの：＠計算＆漢字クイズアプリ＠
 
+# カスタムCSSを追加してボタンのスタイルを変更
+st.markdown("""
+    <style>
+    .stButton>button {
+        background-color: #4CAF50; /* グリーン */
+        color: white;
+        border: none;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 12px;
+    }
+    .stButton>button:hover {
+        background-color: #45a049;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 # タイトルをつける。
 st.title('計算問題アプリ')
 
