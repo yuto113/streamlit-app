@@ -92,5 +92,9 @@ if st.button('計算の問題出題(割り算～÷～)'):
 st.write(st.session_state.kk, '÷', st.session_state.ll)
 
 if st.button('こたえ (割り算)'):
-    st.session_state.ancerg = round(st.session_state.kk / st.session_state.ll, 10)
+    result = st.session_state.kk / st.session_state.ll
+    if result.is_integer():
+        st.session_state.ancerg = int(result)
+    else:
+        st.session_state.ancerg = f"{round(result, 5)}..."
     st.write(st.session_state.ancerg)
