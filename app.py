@@ -86,6 +86,9 @@ if st.button('計算(けいさん)の問題出題(もんだいしゅつだい)')
 
     st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem}</h2>", unsafe_allow_html=True)
 
+# 回答欄を表示
+answer = st.text_input('答えを入力してください')
+
 # 答えを表示するボタン
 if st.button('こたえ'):
     if problem_type == '繰(く)り上(あ)がりなしの足(た)し算(ざん)':
@@ -119,3 +122,16 @@ if st.button('こたえ'):
         else:
             st.session_state.ancerk = f"{round(result, 5)}..."
         st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem} = {st.session_state.ancerk}</h2>", unsafe_allow_html=True)
+
+    # ユーザーの答えと正解を比較
+    if answer:
+        if str(answer) == str(st.session_state.ancerk):
+            st.success("正解です！")
+        else:
+            st.error("不正解です。")
+
+# 外部サイトへのリンクボタン
+if st.button('外部サイトへ移動'):
+    js = "window.open('https://www.example.com')"  # ここに移動したいURLを入力
+    html = f"<script>{js}</script>"
+    st.markdown(html, unsafe_allow_html=True)
