@@ -141,6 +141,8 @@ if st.button('こたえ'):
                 st.session_state.ancerk = f"{round(result, 5)}..."
             correct_answer = st.session_state.ancerk
             st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem} = {correct_answer}</h2>", unsafe_allow_html=True)
+    except Exception as e:
+        logging.error(f"Error in answer display: {e}")
 
 # 外部サイトへのリンクボタン
 if st.button('外部サイトへ移動(タイムアタックモード)'):
