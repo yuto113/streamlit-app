@@ -160,7 +160,9 @@ if st.button('こたえ'):
             st.session_state.current_problem += 1
             st.experimental_rerun()
         else:
+            total_time = time.time() - st.session_state.start_time
             st.write(f"タイムアタック終了！正解数: {st.session_state.correct_answers}/{st.session_state.num_problems}")
+            st.write(f"合計時間: {total_time:.2f}秒")
 
     # ユーザーの答えと正解を比較
     if answer:
