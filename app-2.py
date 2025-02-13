@@ -1,6 +1,7 @@
 import streamlit as st
 import random as ran
 import time
+from streamlit_drawable_canvas import st_canvas
 
 # 作るもの：＠計算＆漢字クイズアプリ＠
 
@@ -30,7 +31,7 @@ st.markdown("""
 
 # タイトルをつける。
 st.title('計算問題アプリ')
-st.write("ver.3.2※[大アップデート]ver.4.0は、2月22日にアップデート予定")
+st.write("ver.3.3※[大アップデート]ver.4.0は、2月22日にアップデート予定")
 
 # セレクトボックスで問題の種類を選択
 problem_type = st.selectbox(
@@ -208,6 +209,20 @@ if st.button('こたえ'):
             st.success("正解です！")
         else:
             st.error("不正解です！")
+
+# 手書きメモエリアを追加
+st.write("手書きメモエリア")
+canvas_result = st_canvas(
+    fill_color="rgba(255, 165, 0, 0.3)",  # 塗りつぶしの色
+    stroke_width=2,  # 線の太さ
+    stroke_color="#000000",  # 線の色
+    background_color="#ffffff",  # 背景色
+    update_streamlit=True,
+    height=200,
+    width=600,
+    drawing_mode="freedraw",
+    key="canvas",
+)
 
 # 外部サイトへのリンクボタン
 if st.button('外部サイトへ移動(現在準備中ボタンを押しても意味がありません)'):
