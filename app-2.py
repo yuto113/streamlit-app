@@ -30,7 +30,7 @@ st.markdown("""
 
 # タイトルをつける。
 st.title('計算問題アプリ')
-st.write("ver.3.0")
+st.write("ver.3.0※[大アップデート]ver.4.0は、2月22日にアップデート予定")
 
 # セレクトボックスで問題の種類を選択
 problem_type = st.selectbox(
