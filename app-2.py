@@ -147,3 +147,9 @@ if st.button('こたえ'):
             st.success("正解です！")
         else:
             st.error("不正解です！")
+
+# 外部サイトへのリンクボタン
+if st.button('外部サイトへ移動(現在準備中ボタンを押しても意味がありません)'):
+    js = "window.open('https://app-2024-5blue0demo.streamlit.app/')"  # ここに移動したいURLを入力
+    html = f"<script>{js}</script>"
+    st.markdown(html, unsafe_allow_html=True)
