@@ -30,7 +30,7 @@ st.markdown("""
 
 # タイトルをつける。
 st.title('計算問題アプリ')
-st.write("ver.3.1※[大アップデート]ver.4.0は、2月22日にアップデート予定")
+st.write("ver.3.2※[大アップデート]ver.4.0は、2月22日にアップデート予定")
 
 # セレクトボックスで問題の種類を選択
 problem_type = st.selectbox(
@@ -49,7 +49,9 @@ problem_type = st.selectbox(
         '2けた÷1けたの割(わ)り算(ざん) (小数・あまりなし)',
         '2けた÷1けたの割(わ)り算(ざん) (小数・あまりあり)',
         '余りを出す割(わ)り算(ざん)',
-        '普通の割(わ)り算(ざん)'
+        '普通の割(わ)り算(ざん)',
+        '掛け算の穴埋め問題',
+        '割り算の穴埋め問題'
     ]
 )
 
@@ -119,6 +121,16 @@ if st.button('計算(けいさん)の問題出題(もんだいしゅつだい)')
             st.session_state.ss = ran.randint(1, 100)
             st.session_state.tt = ran.randint(1, 100)
             st.session_state.problem = f"{st.session_state.ss} ÷ {st.session_state.tt}"
+        elif problem_type == '掛け算の穴埋め問題':
+            st.session_state.aa = ran.randint(1, 9)
+            st.session_state.bb = ran.randint(1, 9)
+            st.session_state.cc = st.session_state.aa * st.session_state.bb
+            st.session_state.problem = f"{st.session_state.aa} ✖ ___ = {st.session_state.cc}"
+        elif problem_type == '割り算の穴埋め問題':
+            st.session_state.aa = ran.randint(1, 9)
+            st.session_state.bb = ran.randint(1, 9)
+            st.session_state.cc = st.session_state.aa * st.session_state.bb
+            st.session_state.problem = f"{st.session_state.cc} ÷ ___ = {st.session_state.aa}"
 
         st.session_state.problem_generated = True
         st.session_state.start_time = time.time()
@@ -171,6 +183,10 @@ if st.button('こたえ'):
         else:
             st.session_state.ancerk = f"{round(result, 5)}..."
         correct_answer = st.session_state.ancerk
+    elif problem_type == '掛け算の穴埋め問題':
+        correct_answer = st.session_state.bb
+    elif problem_type == '割り算の穴埋め問題':
+        correct_answer = st.session_state.bb
 
     st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem} = {correct_answer}</h2>", unsafe_allow_html=True)
 
