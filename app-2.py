@@ -47,49 +47,53 @@ problem_type = st.selectbox(
     ]
 )
 
-# タイムアタックモードの選択
-time_attack = st.checkbox('タイムアタックモード')
+# タイムアタックモードのボタン
+if st.button('タイムアタックモード'):
+    st.session_state.time_attack = True
+    st.session_state.start_time = time.time()
+    st.session_state.problem_generated = False
 
 # 問題を出すボタン
-if st.button('計算(けいさん)の問題出題(もんだいしゅつだい)'):
-    if time_attack:
-        st.session_state.start_time = time.time()
-    if problem_type == '繰(く)り上(あ)がりなしの足(た)し算(ざん)':
-        st.session_state.aa = ran.randint(1, 9)
-        st.session_state.bb = ran.randint(1, 9)
-        st.session_state.problem = f"{st.session_state.aa} + {st.session_state.bb}"
-    elif problem_type == '繰(く)り上(あ)がりのある足(た)し算(ざん)':
-        st.session_state.cc = ran.randint(10, 99)
-        st.session_state.dd = ran.randint(10, 99)
-        st.session_state.problem = f"{st.session_state.cc} + {st.session_state.dd}"
-    elif problem_type == '繰(く)り下(さ)がりなしの引(ひ)き算(ざん)':
-        st.session_state.ee = ran.randint(1, 100)
-        st.session_state.ff = ran.randint(1, 100)
-        st.session_state.problem = f"{max(st.session_state.ee, st.session_state.ff)} - {min(st.session_state.ee, st.session_state.ff)}"
-    elif problem_type == '繰(く)り下(さ)がりのある引(ひ)き算(ざん)':
-        st.session_state.gg = ran.randint(10, 99)
-        st.session_state.hh = ran.randint(10, 99)
-        st.session_state.problem = f"{max(st.session_state.gg, st.session_state.hh)} - {min(st.session_state.gg, st.session_state.hh)}"
-    elif problem_type == '1けた×1けたの掛(か)け算(ざん)':
-        st.session_state.ii = ran.randint(1, 9)
-        st.session_state.jj = ran.randint(1, 9)
-        st.session_state.problem = f"{st.session_state.ii} ✖ {st.session_state.jj}"
-    elif problem_type == '1けた×2けたの掛(か)け算(ざん)':
-        st.session_state.kk = ran.randint(1, 9)
-        st.session_state.ll = ran.randint(10, 99)
-        st.session_state.problem = f"{st.session_state.kk} ✖ {st.session_state.ll}"
-    elif problem_type == '2けた×2けたの掛(か)け算(ざん)':
-        st.session_state.mm = ran.randint(10, 99)
-        st.session_state.nn = ran.randint(10, 99)
-        st.session_state.problem = f"{st.session_state.mm} ✖ {st.session_state.nn}"
-    elif problem_type == 'すべての掛(か)け算(ざん)':
-        st.session_state.qq = ran.randint(1, 99)
-        st.session_state.rr = ran.randint(1, 99)
-        st.session_state.problem = f"{st.session_state.qq} ✖ {st.session_state.rr}"
-    elif problem_type == '割(わ)り算(ざん)':
-        st.session_state.ss = ran.randint(1, 100)
-        st.session_state.tt = ran.randint(1, 100)
-        st.session_state.problem = f"{st.session_state.ss} ÷ {st.session_state.tt}"
+if st.button('計算(けいさん)の問題出題(もんだいしゅつだい)') or st.session_state.get('time_attack', False):
+    if not st.session_state.get('problem_generated', False):
+        if problem_type == '繰(く)り上(あ)がりなしの足(た)し算(ざん)':
+            st.session_state.aa = ran.randint(1, 9)
+            st.session_state.bb = ran.randint(1, 9)
+            st.session_state.problem = f"{st.session_state.aa} + {st.session_state.bb}"
+        elif problem_type == '繰(く)り上(あ)がりのある足(た)し算(ざん)':
+            st.session_state.cc = ran.randint(10, 99)
+            st.session_state.dd = ran.randint(10, 99)
+            st.session_state.problem = f"{st.session_state.cc} + {st.session_state.dd}"
+        elif problem_type == '繰(く)り下(さ)がりなしの引(ひ)き算(ざん)':
+            st.session_state.ee = ran.randint(1, 100)
+            st.session_state.ff = ran.randint(1, 100)
+            st.session_state.problem = f"{max(st.session_state.ee, st.session_state.ff)} - {min(st.session_state.ee, st.session_state.ff)}"
+        elif problem_type == '繰(く)り下(さ)がりのある引(ひ)き算(ざん)':
+            st.session_state.gg = ran.randint(10, 99)
+            st.session_state.hh = ran.randint(10, 99)
+            st.session_state.problem = f"{max(st.session_state.gg, st.session_state.hh)} - {min(st.session_state.gg, st.session_state.hh)}"
+        elif problem_type == '1けた×1けたの掛(か)け算(ざん)':
+            st.session_state.ii = ran.randint(1, 9)
+            st.session_state.jj = ran.randint(1, 9)
+            st.session_state.problem = f"{st.session_state.ii} ✖ {st.session_state.jj}"
+        elif problem_type == '1けた×2けたの掛(か)け算(ざん)':
+            st.session_state.kk = ran.randint(1, 9)
+            st.session_state.ll = ran.randint(10, 99)
+            st.session_state.problem = f"{st.session_state.kk} ✖ {st.session_state.ll}"
+        elif problem_type == '2けた×2けたの掛(か)け算(ざん)':
+            st.session_state.mm = ran.randint(10, 99)
+            st.session_state.nn = ran.randint(10, 99)
+            st.session_state.problem = f"{st.session_state.mm} ✖ {st.session_state.nn}"
+        elif problem_type == 'すべての掛(か)け算(ざん)':
+            st.session_state.qq = ran.randint(1, 99)
+            st.session_state.rr = ran.randint(1, 99)
+            st.session_state.problem = f"{st.session_state.qq} ✖ {st.session_state.rr}"
+        elif problem_type == '割(わ)り算(ざん)':
+            st.session_state.ss = ran.randint(1, 100)
+            st.session_state.tt = ran.randint(1, 100)
+            st.session_state.problem = f"{st.session_state.ss} ÷ {st.session_state.tt}"
+
+        st.session_state.problem_generated = True
 
     st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem}</h2>", unsafe_allow_html=True)
 
@@ -132,7 +136,7 @@ if st.button('こたえ'):
 
     st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem} = {correct_answer}</h2>", unsafe_allow_html=True)
 
-    if time_attack:
+    if st.session_state.get('time_attack', False):
         end_time = time.time()
         elapsed_time = end_time - st.session_state.start_time
         st.write(f"タイムアタックモード: {elapsed_time:.2f}秒")
