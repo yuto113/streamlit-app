@@ -30,6 +30,7 @@ st.markdown("""
 
 # タイトルをつける。
 st.title('計算問題アプリ')
+st.write("ver.3.0")
 
 # セレクトボックスで問題の種類を選択
 problem_type = st.selectbox(
@@ -47,63 +48,55 @@ problem_type = st.selectbox(
     ]
 )
 
-# タイムアタックモードのスライダー
-num_problems = st.slider('タイムアタックモードの問題数', min_value=1, max_value=10, value=5)
-
 # タイムアタックモードのボタン
 if st.button('タイムアタックモード'):
     st.session_state.time_attack = True
     st.session_state.start_time = time.time()
     st.session_state.problem_generated = False
-    st.session_state.num_problems = num_problems
-    st.session_state.current_problem = 0
-    st.session_state.correct_answers = 0
 
 # 問題を出すボタン
 if st.button('計算(けいさん)の問題出題(もんだいしゅつだい)') or st.session_state.get('time_attack', False):
     if not st.session_state.get('problem_generated', False):
-        if st.session_state.current_problem < st.session_state.num_problems:
-            if problem_type == '繰(く)り上(あ)がりなしの足(た)し算(ざん)':
-                st.session_state.aa = ran.randint(1, 9)
-                st.session_state.bb = ran.randint(1, 9)
-                st.session_state.problem = f"{st.session_state.aa} + {st.session_state.bb}"
-            elif problem_type == '繰(く)り上(あ)がりのある足(た)し算(ざん)':
-                st.session_state.cc = ran.randint(10, 99)
-                st.session_state.dd = ran.randint(10, 99)
-                st.session_state.problem = f"{st.session_state.cc} + {st.session_state.dd}"
-            elif problem_type == '繰(く)り下(さ)がりなしの引(ひ)き算(ざん)':
-                st.session_state.ee = ran.randint(1, 100)
-                st.session_state.ff = ran.randint(1, 100)
-                st.session_state.problem = f"{max(st.session_state.ee, st.session_state.ff)} - {min(st.session_state.ee, st.session_state.ff)}"
-            elif problem_type == '繰(く)り下(さ)がりのある引(ひ)き算(ざん)':
-                st.session_state.gg = ran.randint(10, 99)
-                st.session_state.hh = ran.randint(10, 99)
-                st.session_state.problem = f"{max(st.session_state.gg, st.session_state.hh)} - {min(st.session_state.gg, st.session_state.hh)}"
-            elif problem_type == '1けた×1けたの掛(か)け算(ざん)':
-                st.session_state.ii = ran.randint(1, 9)
-                st.session_state.jj = ran.randint(1, 9)
-                st.session_state.problem = f"{st.session_state.ii} ✖ {st.session_state.jj}"
-            elif problem_type == '1けた×2けたの掛(か)け算(ざん)':
-                st.session_state.kk = ran.randint(1, 9)
-                st.session_state.ll = ran.randint(10, 99)
-                st.session_state.problem = f"{st.session_state.kk} ✖ {st.session_state.ll}"
-            elif problem_type == '2けた×2けたの掛(か)け算(ざん)':
-                st.session_state.mm = ran.randint(10, 99)
-                st.session_state.nn = ran.randint(10, 99)
-                st.session_state.problem = f"{st.session_state.mm} ✖ {st.session_state.nn}"
-            elif problem_type == 'すべての掛(か)け算(ざん)':
-                st.session_state.qq = ran.randint(1, 99)
-                st.session_state.rr = ran.randint(1, 99)
-                st.session_state.problem = f"{st.session_state.qq} ✖ {st.session_state.rr}"
-            elif problem_type == '割(わ)り算(ざん)':
-                st.session_state.ss = ran.randint(1, 100)
-                st.session_state.tt = ran.randint(1, 100)
-                st.session_state.problem = f"{st.session_state.ss} ÷ {st.session_state.tt}"
+        if problem_type == '繰(く)り上(あ)がりなしの足(た)し算(ざん)':
+            st.session_state.aa = ran.randint(1, 9)
+            st.session_state.bb = ran.randint(1, 9)
+            st.session_state.problem = f"{st.session_state.aa} + {st.session_state.bb}"
+        elif problem_type == '繰(く)り上(あ)がりのある足(た)し算(ざん)':
+            st.session_state.cc = ran.randint(10, 99)
+            st.session_state.dd = ran.randint(10, 99)
+            st.session_state.problem = f"{st.session_state.cc} + {st.session_state.dd}"
+        elif problem_type == '繰(く)り下(さ)がりなしの引(ひ)き算(ざん)':
+            st.session_state.ee = ran.randint(1, 100)
+            st.session_state.ff = ran.randint(1, 100)
+            st.session_state.problem = f"{max(st.session_state.ee, st.session_state.ff)} - {min(st.session_state.ee, st.session_state.ff)}"
+        elif problem_type == '繰(く)り下(さ)がりのある引(ひ)き算(ざん)':
+            st.session_state.gg = ran.randint(10, 99)
+            st.session_state.hh = ran.randint(10, 99)
+            st.session_state.problem = f"{max(st.session_state.gg, st.session_state.hh)} - {min(st.session_state.gg, st.session_state.hh)}"
+        elif problem_type == '1けた×1けたの掛(か)け算(ざん)':
+            st.session_state.ii = ran.randint(1, 9)
+            st.session_state.jj = ran.randint(1, 9)
+            st.session_state.problem = f"{st.session_state.ii} ✖ {st.session_state.jj}"
+        elif problem_type == '1けた×2けたの掛(か)け算(ざん)':
+            st.session_state.kk = ran.randint(1, 9)
+            st.session_state.ll = ran.randint(10, 99)
+            st.session_state.problem = f"{st.session_state.kk} ✖ {st.session_state.ll}"
+        elif problem_type == '2けた×2けたの掛(か)け算(ざん)':
+            st.session_state.mm = ran.randint(10, 99)
+            st.session_state.nn = ran.randint(10, 99)
+            st.session_state.problem = f"{st.session_state.mm} ✖ {st.session_state.nn}"
+        elif problem_type == 'すべての掛(か)け算(ざん)':
+            st.session_state.qq = ran.randint(1, 99)
+            st.session_state.rr = ran.randint(1, 99)
+            st.session_state.problem = f"{st.session_state.qq} ✖ {st.session_state.rr}"
+        elif problem_type == '割(わ)り算(ざん)':
+            st.session_state.ss = ran.randint(1, 100)
+            st.session_state.tt = ran.randint(1, 100)
+            st.session_state.problem = f"{st.session_state.ss} ÷ {st.session_state.tt}"
 
-            st.session_state.problem_generated = True
-            st.session_state.current_problem += 1
+        st.session_state.problem_generated = True
 
-        st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem}</h2>", unsafe_allow_html=True)
+    st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem}</h2>", unsafe_allow_html=True)
 
 # 回答欄を表示
 answer = st.text_input('答えを入力してください')
@@ -149,21 +142,6 @@ if st.button('こたえ'):
         elapsed_time = end_time - st.session_state.start_time
         st.write(f"タイムアタックモード: {elapsed_time:.2f}秒")
 
-        # 正解数をカウント
-        if answer:
-            if str(answer) == str(correct_answer):
-                st.session_state.correct_answers += 1
-
-        # 次の問題を出題
-        if st.session_state.current_problem < st.session_state.num_problems:
-            st.session_state.problem_generated = False
-            st.session_state.current_problem += 1
-            st.experimental_rerun()
-        else:
-            total_time = time.time() - st.session_state.start_time
-            st.write(f"タイムアタック終了！正解数: {st.session_state.correct_answers}/{st.session_state.num_problems}")
-            st.write(f"合計時間: {total_time:.2f}秒")
-
     # ユーザーの答えと正解を比較
     if answer:
         if str(answer) == str(correct_answer):
@@ -172,7 +150,7 @@ if st.button('こたえ'):
             st.error("不正解です！")
 
 # 外部サイトへのリンクボタン
-if st.button('外部サイトへ移動(現在準備中ボタンを押しても意味がありません)'):
+if st.button('外部サイトへ移動(現在準備中ボタンを押しても意味がありません。※今後のアップデートで準備中)'):
     js = "window.open('https://app-2024-5blue0demo.streamlit.app')"  # ここに移動したいURLを入力
     html = f"<script>{js}</script>"
     st.markdown(html, unsafe_allow_html=True)
