@@ -30,7 +30,7 @@ st.markdown("""
 
 # タイトルをつける。
 st.title('計算問題アプリ')
-st.write("ver.3.0※[大アップデート]ver.4.0は、2月22日にアップデート予定")
+st.write("ver.3.1※[大アップデート]ver.4.0は、2月22日にアップデート予定")
 
 # セレクトボックスで問題の種類を選択
 problem_type = st.selectbox(
@@ -44,7 +44,12 @@ problem_type = st.selectbox(
         '1けた×2けたの掛(か)け算(ざん)',
         '2けた×2けたの掛(か)け算(ざん)',
         'すべての掛(か)け算(ざん)',
-        '割(わ)り算(ざん)'
+        '九九でできる割(わ)り算(ざん) (小数・あまりなし)',
+        '九九でできる割(わ)り算(ざん) (小数・あまりあり)',
+        '2けた÷1けたの割(わ)り算(ざん) (小数・あまりなし)',
+        '2けた÷1けたの割(わ)り算(ざん) (小数・あまりあり)',
+        '余りを出す割(わ)り算(ざん)',
+        '普通の割(わ)り算(ざん)'
     ]
 )
 
@@ -53,6 +58,7 @@ if st.button('タイムアタックモード'):
     st.session_state.time_attack = True
     st.session_state.start_time = time.time()
     st.session_state.problem_generated = False
+    st.session_state.correct_answers = 0
 
 # 問題を出すボタン
 if st.button('計算(けいさん)の問題出題(もんだいしゅつだい)') or st.session_state.get('time_attack', False):
@@ -89,12 +95,33 @@ if st.button('計算(けいさん)の問題出題(もんだいしゅつだい)')
             st.session_state.qq = ran.randint(1, 99)
             st.session_state.rr = ran.randint(1, 99)
             st.session_state.problem = f"{st.session_state.qq} ✖ {st.session_state.rr}"
-        elif problem_type == '割(わ)り算(ざん)':
+        elif problem_type == '九九でできる割(わ)り算(ざん) (小数・あまりなし)':
+            st.session_state.ss = ran.randint(1, 9)
+            st.session_state.tt = ran.randint(1, 9)
+            st.session_state.problem = f"{st.session_state.ss * st.session_state.tt} ÷ {st.session_state.tt}"
+        elif problem_type == '九九でできる割(わ)り算(ざん) (小数・あまりあり)':
+            st.session_state.ss = ran.randint(1, 9)
+            st.session_state.tt = ran.randint(1, 9)
+            st.session_state.problem = f"{st.session_state.ss * st.session_state.tt + ran.randint(1, 8)} ÷ {st.session_state.tt}"
+        elif problem_type == '2けた÷1けたの割(わ)り算(ざん) (小数・あまりなし)':
+            st.session_state.ss = ran.randint(10, 99)
+            st.session_state.tt = ran.randint(1, 9)
+            st.session_state.problem = f"{st.session_state.ss * st.session_state.tt} ÷ {st.session_state.tt}"
+        elif problem_type == '2けた÷1けたの割(わ)り算(ざん) (小数・あまりあり)':
+            st.session_state.ss = ran.randint(10, 99)
+            st.session_state.tt = ran.randint(1, 9)
+            st.session_state.problem = f"{st.session_state.ss * st.session_state.tt + ran.randint(1, 8)} ÷ {st.session_state.tt}"
+        elif problem_type == '余りを出す割(わ)り算(ざん)':
+            st.session_state.ss = ran.randint(10, 99)
+            st.session_state.tt = ran.randint(1, 9)
+            st.session_state.problem = f"{st.session_state.ss} ÷ {st.session_state.tt}"
+        elif problem_type == '普通の割(わ)り算(ざん)':
             st.session_state.ss = ran.randint(1, 100)
             st.session_state.tt = ran.randint(1, 100)
             st.session_state.problem = f"{st.session_state.ss} ÷ {st.session_state.tt}"
 
         st.session_state.problem_generated = True
+        st.session_state.start_time = time.time()
 
     st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem}</h2>", unsafe_allow_html=True)
 
@@ -127,7 +154,17 @@ if st.button('こたえ'):
     elif problem_type == 'すべての掛(か)け算(ざん)':
         st.session_state.ancerj = st.session_state.qq * st.session_state.rr
         correct_answer = st.session_state.ancerj
-    elif problem_type == '割(わ)り算(ざん)':
+    elif problem_type == '九九でできる割(わ)り算(ざん) (小数・あまりなし)':
+        correct_answer = st.session_state.ss
+    elif problem_type == '九九でできる割(わ)り算(ざん) (小数・あまりあり)':
+        correct_answer = round(st.session_state.ss + ran.randint(1, 8) / st.session_state.tt, 2)
+    elif problem_type == '2けた÷1けたの割(わ)り算(ざん) (小数・あまりなし)':
+        correct_answer = st.session_state.ss
+    elif problem_type == '2けた÷1けたの割(わ)り算(ざん) (小数・あまりあり)':
+        correct_answer = round(st.session_state.ss + ran.randint(1, 8) / st.session_state.tt, 2)
+    elif problem_type == '余りを出す割(わ)り算(ざん)':
+        correct_answer = f"{st.session_state.ss // st.session_state.tt} 余り {st.session_state.ss % st.session_state.tt}"
+    elif problem_type == '普通の割(わ)り算(ざん)':
         result = st.session_state.ss / st.session_state.tt
         if result.is_integer():
             st.session_state.ancerk = int(result)
@@ -142,6 +179,13 @@ if st.button('こたえ'):
         elapsed_time = end_time - st.session_state.start_time
         st.write(f"タイムアタックモード: {elapsed_time:.2f}秒")
 
+        # 正解数をカウント
+        if answer:
+            if str(answer) == str(correct_answer):
+                st.session_state.correct_answers += 1
+
+        st.session_state.problem_generated = False
+
     # ユーザーの答えと正解を比較
     if answer:
         if str(answer) == str(correct_answer):
@@ -150,7 +194,7 @@ if st.button('こたえ'):
             st.error("不正解です！")
 
 # 外部サイトへのリンクボタン
-if st.button('外部サイトへ移動(現在準備中ボタンを押しても意味がありません。※今後のアップデートで準備中)'):
+if st.button('外部サイトへ移動(現在準備中ボタンを押しても意味がありません)'):
     js = "window.open('https://app-2024-5blue0demo.streamlit.app')"  # ここに移動したいURLを入力
     html = f"<script>{js}</script>"
     st.markdown(html, unsafe_allow_html=True)
