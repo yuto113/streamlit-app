@@ -136,10 +136,10 @@ if st.button('こたえ'):
         st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem} = {correct_answer}</h2>", unsafe_allow_html=True)
 
         # ユーザーの答えと正解を比較
-        if str(st.session_state.answer) == str(correct_answer):
-            st.success('正解です！')
+        if str(st.sessions_stnswer) == str(correct_answer):
+            st.write('正解です！')
         else:
-            st.error('不正解です！')
+            st.write('不正解です！')
     except Exception as e:
         logging.error(f"Error in answer display: {e}")
 
@@ -148,4 +148,3 @@ if st.button('外部サイトへ移動'):
     js = "window.open('https://www.example.com')"  # ここに移動したいURLを入力
     html = f"<script>{js}</script>"
     st.markdown(html, unsafe_allow_html=True)
-    
