@@ -157,6 +157,7 @@ if st.button('こたえ'):
         # 次の問題を出題
         if st.session_state.current_problem < st.session_state.num_problems:
             st.session_state.problem_generated = False
+            st.session_state.current_problem += 1
             st.experimental_rerun()
         else:
             st.write(f"タイムアタック終了！正解数: {st.session_state.correct_answers}/{st.session_state.num_problems}")
