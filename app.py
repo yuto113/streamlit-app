@@ -148,3 +148,4 @@ if st.button('外部サイトへ移動'):
     js = "window.open('https://www.example.com')"  # ここに移動したいURLを入力
     html = f"<script>{js}</script>"
     st.markdown(html, unsafe_allow_html=True)
+    
