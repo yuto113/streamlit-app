@@ -95,7 +95,7 @@ if st.button('計算(けいさん)の問題出題(もんだいしゅつだい)')
         logging.error(f"Error in problem generation: {e}")
 
 # 回答欄を表示
-answer = st.text_input('答えを入力してください')
+st.session_state.answer = st.text_input('答えを入力してください')
 
 # 答えを表示するボタン
 if st.button('こたえ'):
@@ -104,35 +104,27 @@ if st.button('こたえ'):
         if problem_type == '繰(く)り上(あ)がりなしの足(た)し算(ざん)':
             st.session_state.ancera = st.session_state.aa + st.session_state.bb
             correct_answer = st.session_state.ancera
-            st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem} = {correct_answer}</h2>", unsafe_allow_html=True)
         elif problem_type == '繰(く)り上(あ)がりのある足(た)し算(ざん)':
             st.session_state.ancerb = st.session_state.cc + st.session_state.dd
             correct_answer = st.session_state.ancerb
-            st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem} = {correct_answer}</h2>", unsafe_allow_html=True)
         elif problem_type == '繰(く)り下(さ)がりなしの引(ひ)き算(ざん)':
             st.session_state.ancerc = abs(st.session_state.ee - st.session_state.ff)
             correct_answer = st.session_state.ancerc
-            st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem} = {correct_answer}</h2>", unsafe_allow_html=True)
         elif problem_type == '繰(く)り下(さ)がりのある引(ひ)き算(ざん)':
             st.session_state.ancerd = abs(st.session_state.gg - st.session_state.hh)
             correct_answer = st.session_state.ancerd
-            st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem} = {correct_answer}</h2>", unsafe_allow_html=True)
         elif problem_type == '1けた×1けたの掛(か)け算(ざん)':
             st.session_state.ancerf = st.session_state.ii * st.session_state.jj
             correct_answer = st.session_state.ancerf
-            st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem} = {correct_answer}</h2>", unsafe_allow_html=True)
         elif problem_type == '1けた×2けたの掛(か)け算(ざん)':
             st.session_state.ancerg = st.session_state.kk * st.session_state.ll
             correct_answer = st.session_state.ancerg
-            st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem} = {correct_answer}</h2>", unsafe_allow_html=True)
         elif problem_type == '2けた×2けたの掛(か)け算(ざん)':
             st.session_state.ancerh = st.session_state.mm * st.session_state.nn
             correct_answer = st.session_state.ancerh
-            st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem} = {correct_answer}</h2>", unsafe_allow_html=True)
         elif problem_type == 'すべての掛(か)け算(ざん)':
             st.session_state.ancerj = st.session_state.qq * st.session_state.rr
             correct_answer = st.session_state.ancerj
-            st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem} = {correct_answer}</h2>", unsafe_allow_html=True)
         elif problem_type == '割(わ)り算(ざん)':
             result = st.session_state.ss / st.session_state.tt
             if result.is_integer():
@@ -140,12 +132,19 @@ if st.button('こたえ'):
             else:
                 st.session_state.ancerk = f"{round(result, 5)}..."
             correct_answer = st.session_state.ancerk
-            st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem} = {correct_answer}</h2>", unsafe_allow_html=True)
+
+        st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem} = {correct_answer}</h2>", unsafe_allow_html=True)
+
+        # ユーザーの答えと正解を比較
+        if str(st.session_state.answer) == str(correct_answer):
+            st.success('正解です！')
+        else:
+            st.error('不正解です！')
     except Exception as e:
         logging.error(f"Error in answer display: {e}")
 
 # 外部サイトへのリンクボタン
-if st.button('外部サイトへ移動(タイムアタックモード)'):
+if st.button('外部サイトへ移動'):
     js = "window.open('https://www.example.com')"  # ここに移動したいURLを入力
     html = f"<script>{js}</script>"
     st.markdown(html, unsafe_allow_html=True)
