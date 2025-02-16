@@ -142,72 +142,73 @@ answer = st.text_input('答えを入力してください')
 
 # 答えを表示するボタン
 if st.button('こたえ'):
-    if problem_type == '繰(く)り上(あ)がりなしの足(た)し算(ざん)':
-        st.session_state.ancera = st.session_state.aa + st.session_state.bb
-        correct_answer = st.session_state.ancera
-    elif problem_type == '繰(く)り上(あ)がりのある足(た)し算(ざん)':
-        st.session_state.ancerb = st.session_state.cc + st.session_state.dd
-        correct_answer = st.session_state.ancerb
-    elif problem_type == '繰(く)り下(さ)がりなしの引(ひ)き算(ざん)':
-        st.session_state.ancerc = abs(st.session_state.ee - st.session_state.ff)
-        correct_answer = st.session_state.ancerc
-    elif problem_type == '繰(く)り下(さ)がりのある引(ひ)き算(ざん)':
-        st.session_state.ancerd = abs(st.session_state.gg - st.session_state.hh)
-        correct_answer = st.session_state.ancerd
-    elif problem_type == '1けた×1けたの掛(か)け算(ざん)':
-        st.session_state.ancerf = st.session_state.ii * st.session_state.jj
-        correct_answer = st.session_state.ancerf
-    elif problem_type == '1けた×2けたの掛(か)け算(ざん)':
-        st.session_state.ancerg = st.session_state.kk * st.session_state.ll
-        correct_answer = st.session_state.ancerg
-    elif problem_type == '2けた×2けたの掛(か)け算(ざん)':
-        st.session_state.ancerh = st.session_state.mm * st.session_state.nn
-        correct_answer = st.session_state.ancerh
-    elif problem_type == 'すべての掛(か)け算(ざん)':
-        st.session_state.ancerj = st.session_state.qq * st.session_state.rr
-        correct_answer = st.session_state.ancerj
-    elif problem_type == '九九でできる割(わ)り算(ざん) (小数・あまりなし)':
-        correct_answer = st.session_state.ss
-    elif problem_type == '九九でできる割(わ)り算(ざん) (小数・あまりあり)':
-        correct_answer = round(st.session_state.ss + ran.randint(1, 8) / st.session_state.tt, 2)
-    elif problem_type == '2けた÷1けたの割(わ)り算(ざん) (小数・あまりなし)':
-        correct_answer = st.session_state.ss
-    elif problem_type == '2けた÷1けたの割(わ)り算(ざん) (小数・あまりあり)':
-        correct_answer = round(st.session_state.ss + ran.randint(1, 8) / st.session_state.tt, 2)
-    elif problem_type == '余りを出す割(わ)り算(ざん)':
-        correct_answer = f"{st.session_state.ss // st.session_state.tt} 余り {st.session_state.ss % st.session_state.tt}"
-    elif problem_type == '普通の割(わ)り算(ざん)':
-        result = st.session_state.ss / st.session_state.tt
-        if result.is_integer():
-            st.session_state.ancerk = int(result)
-        else:
-            st.session_state.ancerk = f"{round(result, 5)}..."
-        correct_answer = st.session_state.ancerk
-    elif problem_type == '掛け算の穴埋め問題':
-        correct_answer = st.session_state.bb
-    elif problem_type == '割り算の穴埋め問題':
-        correct_answer = st.session_state.bb
+    if 'problem' in st.session_state:
+        if problem_type == '繰(く)り上(あ)がりなしの足(た)し算(ざん)':
+            st.session_state.ancera = st.session_state.aa + st.session_state.bb
+            correct_answer = st.session_state.ancera
+        elif problem_type == '繰(く)り上(あ)がりのある足(た)し算(ざん)':
+            st.session_state.ancerb = st.session_state.cc + st.session_state.dd
+            correct_answer = st.session_state.ancerb
+        elif problem_type == '繰(く)り下(さ)がりなしの引(ひ)き算(ざん)':
+            st.session_state.ancerc = abs(st.session_state.ee - st.session_state.ff)
+            correct_answer = st.session_state.ancerc
+        elif problem_type == '繰(く)り下(さ)がりのある引(ひ)き算(ざん)':
+            st.session_state.ancerd = abs(st.session_state.gg - st.session_state.hh)
+            correct_answer = st.session_state.ancerd
+        elif problem_type == '1けた×1けたの掛(か)け算(ざん)':
+            st.session_state.ancerf = st.session_state.ii * st.session_state.jj
+            correct_answer = st.session_state.ancerf
+        elif problem_type == '1けた×2けたの掛(か)け算(ざん)':
+            st.session_state.ancerg = st.session_state.kk * st.session_state.ll
+            correct_answer = st.session_state.ancerg
+        elif problem_type == '2けた×2けたの掛(か)け算(ざん)':
+            st.session_state.ancerh = st.session_state.mm * st.session_state.nn
+            correct_answer = st.session_state.ancerh
+        elif problem_type == 'すべての掛(か)け算(ざん)':
+            st.session_state.ancerj = st.session_state.qq * st.session_state.rr
+            correct_answer = st.session_state.ancerj
+        elif problem_type == '九九でできる割(わ)り算(ざん) (小数・あまりなし)':
+            correct_answer = st.session_state.ss
+        elif problem_type == '九九でできる割(わ)り算(ざん) (小数・あまりあり)':
+            correct_answer = round(st.session_state.ss + ran.randint(1, 8) / st.session_state.tt, 2)
+        elif problem_type == '2けた÷1けたの割(わ)り算(ざん) (小数・あまりなし)':
+            correct_answer = st.session_state.ss
+        elif problem_type == '2けた÷1けたの割(わ)り算(ざん) (小数・あまりあり)':
+            correct_answer = round(st.session_state.ss + ran.randint(1, 8) / st.session_state.tt, 2)
+        elif problem_type == '余りを出す割(わ)り算(ざん)':
+            correct_answer = f"{st.session_state.ss // st.session_state.tt} 余り {st.session_state.ss % st.session_state.tt}"
+        elif problem_type == '普通の割(わ)り算(ざん)':
+            result = st.session_state.ss / st.session_state.tt
+            if result.is_integer():
+                st.session_state.ancerk = int(result)
+            else:
+                st.session_state.ancerk = f"{round(result, 5)}..."
+            correct_answer = st.session_state.ancerk
+        elif problem_type == '掛け算の穴埋め問題':
+            correct_answer = st.session_state.bb
+        elif problem_type == '割り算の穴埋め問題':
+            correct_answer = st.session_state.bb
 
-    st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem} = {correct_answer}</h2>", unsafe_allow_html=True)
+        st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem} = {correct_answer}</h2>", unsafe_allow_html=True)
 
-    if st.session_state.get('time_attack', False):
-        end_time = time.time()
-        elapsed_time = end_time - st.session_state.start_time
-        st.write(f"タイムアタックモード: {elapsed_time:.2f}秒")
+        if st.session_state.get('time_attack', False):
+            end_time = time.time()
+            elapsed_time = end_time - st.session_state.start_time
+            st.write(f"タイムアタックモード: {elapsed_time:.2f}秒")
 
-        # 正解数をカウント
+            # 正解数をカウント
+            if answer:
+                if str(answer) == str(correct_answer):
+                    st.session_state.correct_answers += 1
+
+            st.session_state.problem_generated = False
+
+        # ユーザーの答えと正解を比較
         if answer:
             if str(answer) == str(correct_answer):
-                st.session_state.correct_answers += 1
-
-        st.session_state.problem_generated = False
-
-    # ユーザーの答えと正解を比較
-    if answer:
-        if str(answer) == str(correct_answer):
-            st.success("正解です！")
-        else:
-            st.error("不正解です！")
+                st.success("正解です！")
+            else:
+                st.error("不正解です！")
 
 # 外部サイトへのリンクボタン
 if st.button('外部サイトへ移動(現在準備中ボタンを押しても意味がありません)'):
