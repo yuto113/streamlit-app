@@ -30,7 +30,7 @@ st.markdown("""
 
 # タイトルをつける。
 st.title('計算問題アプリ')
-st.write("ver.3.4β")
+st.write("ver.3.5β")
 
 # セレクトボックスで問題の種類を選択
 problem_type = st.selectbox(
@@ -137,11 +137,8 @@ if st.button('計算(けいさん)の問題出題(もんだいしゅつだい)')
 
     st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem}</h2>", unsafe_allow_html=True)
 
-# 回答欄を表示
-answer = st.text_input('答えを入力してください')
-
-# 答えを表示するボタン
-if st.button('こたえ'):
+# 答えを表示する関数
+def show_answer():
     if 'problem' in st.session_state:
         if problem_type == '繰(く)り上(あ)がりなしの足(た)し算(ざん)':
             st.session_state.ancera = st.session_state.aa + st.session_state.bb
@@ -209,3 +206,16 @@ if st.button('こたえ'):
                 st.success("正解です！")
             else:
                 st.error("不正解です！")
+
+# 回答欄を表示
+answer = st.text_input('答えを入力してください', on_change=show_answer)
+
+# 答えを表示するボタン
+if st.button('こたえ'):
+    show_answer()
+
+# 外部サイトへのリンクボタン
+if st.button('外部サイトへ移動(現在準備中ボタンを押しても意味がありません)'):
+    js = "window.open('https://app-2024-5blue0demo.streamlit.app')"  # ここに移動したいURLを入力
+    html = f"<script>{js}</script>"
+    st.markdown(html, unsafe_allow_html=True)
