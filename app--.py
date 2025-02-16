@@ -194,28 +194,22 @@ def show_answer():
             st.write(f"タイムアタックモード: {elapsed_time:.2f}秒")
 
             # 正解数をカウント
-            if answer:
-                if str(answer) == str(correct_answer):
+            if 'answer' in st.session_state:
+                if str(st.session_state.answer) == str(correct_answer):
                     st.session_state.correct_answers += 1
 
             st.session_state.problem_generated = False
 
         # ユーザーの答えと正解を比較
-        if answer:
-            if str(answer) == str(correct_answer):
+        if 'answer' in st.session_state:
+            if str(st.session_state.answer) == str(correct_answer):
                 st.success("正解です！")
             else:
                 st.error("不正解です！")
 
 # 回答欄を表示
-answer = st.text_input('答えを入力してください', on_change=show_answer)
+answer = st.text_input('答えを入力してください', key='answer', on_change=show_answer)
 
 # 答えを表示するボタン
 if st.button('こたえ'):
     show_answer()
-
-# 外部サイトへのリンクボタン
-if st.button('外部サイトへ移動(現在準備中ボタンを押しても意味がありません)'):
-    js = "window.open('https://app-2024-5blue0demo.streamlit.app')"  # ここに移動したいURLを入力
-    html = f"<script>{js}</script>"
-    st.markdown(html, unsafe_allow_html=True)
