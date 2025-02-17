@@ -186,7 +186,18 @@ def show_answer():
         elif problem_type == '割り算の穴埋め問題':
             correct_answer = st.session_state.bb
 
-        st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem} = {correct_answer}</h2>", unsafe_allow_html=True)
+        st.session_state.correct_answer = correct_answer
+
+# 回答欄を表示
+answer = st.text_input('答えを入力してください', key='answer', on_change=show_answer)
+
+# 答えを表示するボタン
+if st.button('こたえ'):
+    show_answer()
+
+    # 答え合わせとタイムの表示
+    if 'correct_answer' in st.session_state:
+        st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem} = {st.session_state.correct_answer}</h2>", unsafe_allow_html=True)
 
         if st.session_state.get('time_attack', False):
             end_time = time.time()
@@ -195,24 +206,17 @@ def show_answer():
 
             # 正解数をカウント
             if 'answer' in st.session_state:
-                if str(st.session_state.answer) == str(correct_answer):
+                if str(st.session_state.answer) == str(st.session_state.correct_answer):
                     st.session_state.correct_answers += 1
 
             st.session_state.problem_generated = False
 
         # ユーザーの答えと正解を比較
         if 'answer' in st.session_state:
-            if str(st.session_state.answer) == str(correct_answer):
+            if str(st.session_state.answer) == str(st.session_state.correct_answer):
                 st.success("正解です！")
             else:
                 st.error("不正解です！")
-
-# 回答欄を表示
-answer = st.text_input('答えを入力してください', key='answer', on_change=show_answer)
-
-# 答えを表示するボタン
-if st.button('こたえ'):
-    show_answer()
 
 # 外部サイトへのリンクボタン
 if st.button('外部サイトへ移動(現在準備中ボタンを押しても意味がありません)'):
