@@ -213,3 +213,9 @@ answer = st.text_input('答えを入力してください', key='answer', on_cha
 # 答えを表示するボタン
 if st.button('こたえ'):
     show_answer()
+
+# 外部サイトへのリンクボタン
+if st.button('外部サイトへ移動(現在準備中ボタンを押しても意味がありません)'):
+    js = "window.open('https://app-2024-5blue0demo.streamlit.app')"  # ここに移動したいURLを入力
+    html = f"<script>{js}</script>"
+    st.markdown(html, unsafe_allow_html=True)
