@@ -217,8 +217,5 @@ answer = st.text_input('答えを入力してください', key='answer', on_cha
 if st.button('こたえ'):
     show_answer()
 
-# 外部サイトへのリンクボタン
-if st.button('外部サイトへ移動(現在準備中ボタンを押しても意味がありません)'):
-    js = "window.open('https://app-2024-5blue0demo.streamlit.app')"  # ここに移動したいURLを入力
-    html = f"<script>{js}</script>"
-    st.markdown(html, unsafe_allow_html=True)
+st.write('このプログラムを作る際に関係した方々の詳しい情報(個人情報は、おおよそありません。)')
+st.write('https://app-d0t-1ab0.streamlit.app')
