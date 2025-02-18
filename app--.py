@@ -1,6 +1,7 @@
 import streamlit as st
 import random as ran
 import time
+import unicodedata
 
 # 作るもの：＠計算＆漢字クイズアプリ＠
 
@@ -205,17 +206,19 @@ def show_answer():
 
         # ユーザーの答えと正解を比較
         if 'answer' in st.session_state:
-            if str(st.session_state.answer) == str(st.session_state.correct_answer):
+            normalized_answer = unicodedata.normalize('NFKC', st.session_state.answer)
+            if str(normalized_answer) == str(st.session_state.correct_answer):
                 st.success("正解です！")
             else:
                 st.error("不正解です！")
 
 # 回答欄を表示
-answer = st.text_input('答えを入力してください', key='answer', on_change=show_answer)
+answer = st.text_input('答えを入力してください', key='answer')
 
 # 答えを表示するボタン
 if st.button('こたえ'):
     show_answer()
+
 
 st.write('このプログラムを作る際に関係した方々の詳しい情報(個人情報は、おおよそありません。)')
 st.write('https://app-d0t-1ab0.streamlit.app')
