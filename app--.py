@@ -31,7 +31,7 @@ st.markdown("""
 
 # タイトルをつける。
 st.title('計算問題アプリ')
-st.write("ver.3.6β")
+st.write("ver.3.7β")
 
 # セレクトボックスで問題の種類を選択
 problem_type = st.selectbox(
@@ -78,9 +78,12 @@ if st.button('計算(けいさん)の問題出題(もんだいしゅつだい)')
             st.session_state.dd = ran.randint(10, 99)
             st.session_state.problem = f"{st.session_state.cc} + {st.session_state.dd}"
         elif problem_type == '繰(く)り下(さ)がりなしの引(ひ)き算(ざん)':
-            st.session_state.ee = ran.randint(1, 100)
-            st.session_state.ff = ran.randint(1, 100)
-            st.session_state.problem = f"{max(st.session_state.ee, st.session_state.ff)} - {min(st.session_state.ee, st.session_state.ff)}"
+            while True:
+                st.session_state.ee = ran.randint(10, 99)
+                st.session_state.ff = ran.randint(10, 99)
+                if (st.session_state.ee % 10) >= (st.session_state.ff % 10) and (st.session_state.ee // 10) >= (st.session_state.ff // 10):
+                    break
+            st.session_state.problem = f"{st.session_state.ee} - {st.session_state.ff}"
         elif problem_type == '繰(く)り下(さ)がりのある引(ひ)き算(ざん)':
             st.session_state.gg = ran.randint(10, 99)
             st.session_state.hh = ran.randint(10, 99)
@@ -151,7 +154,7 @@ def show_answer():
             st.session_state.ancerb = st.session_state.cc + st.session_state.dd
             correct_answer = st.session_state.ancerb
         elif problem_type == '繰(く)り下(さ)がりなしの引(ひ)き算(ざん)':
-            st.session_state.ancerc = abs(st.session_state.ee - st.session_state.ff)
+            st.session_state.ancerc = st.session_state.ee - st.session_state.ff
             correct_answer = st.session_state.ancerc
         elif problem_type == '繰(く)り下(さ)がりのある引(ひ)き算(ざん)':
             st.session_state.ancerd = abs(st.session_state.gg - st.session_state.hh)
