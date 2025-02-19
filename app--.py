@@ -31,7 +31,7 @@ st.markdown("""
 
 # タイトルをつける。
 st.title('計算問題アプリ')
-st.write("ver.3.5β")
+st.write("ver.3.6β")
 
 # セレクトボックスで問題の種類を選択
 problem_type = st.selectbox(
@@ -42,15 +42,15 @@ problem_type = st.selectbox(
         '繰(く)り下(さ)がりなしの引(ひ)き算(ざん)',
         '繰(く)り下(さ)がりのある引(ひ)き算(ざん)',
         '1けた×1けたの掛(か)け算(ざん)',
-        '1けた×2けたの掛(か)け算(ざん)',
-        '2けた×2けたの掛(か)け算(ざん)',
-        'すべての掛(か)け算(ざん)',
-        '九九でできる割(わ)り算(ざん) (小数・あまりなし)',
-        '九九でできる割(わ)り算(ざん) (小数・あまりあり)',
-        '2けた÷1けたの割(わ)り算(ざん) (小数・あまりなし)',
-        '2けた÷1けたの割(わ)り算(ざん) (小数・あまりあり)',
-        '余りを出す割(わ)り算(ざん)',
-        '普通の割(わ)り算(ざん)',
+        '1けた×2けたの掛(ざん)',
+        '2けた×2けたの掛(ざん)',
+        'すべての掛(ざん)',
+        '九九でできる割(ざん) (小数・あまりなし)',
+        '九九でできる割(ざん) (小数・あまりあり)',
+        '2けた÷1けたの割(ざん) (小数・あまりなし)',
+        '2けた÷1けたの割(ざん) (小数・あまりあり)',
+        '余りを出す割(ざん)',
+        '普通の割(ざん)',
         '掛け算の穴埋め問題',
         '割り算の穴埋め問題'
     ]
@@ -67,8 +67,11 @@ if st.button('タイムアタックモード'):
 if st.button('計算(けいさん)の問題出題(もんだいしゅつだい)') or st.session_state.get('time_attack', False):
     if not st.session_state.get('problem_generated', False):
         if problem_type == '繰(く)り上(あ)がりなしの足(た)し算(ざん)':
-            st.session_state.aa = ran.randint(1, 9)
-            st.session_state.bb = ran.randint(1, 9)
+            while True:
+                st.session_state.aa = ran.randint(1, 9)
+                st.session_state.bb = ran.randint(1, 9)
+                if st.session_state.aa + st.session_state.bb < 10:
+                    break
             st.session_state.problem = f"{st.session_state.aa} + {st.session_state.bb}"
         elif problem_type == '繰(く)り上(あ)がりのある足(た)し算(ざん)':
             st.session_state.cc = ran.randint(10, 99)
@@ -219,6 +222,6 @@ answer = st.text_input('答えを入力してください', key='answer')
 if st.button('こたえ'):
     show_answer()
 
-
+# 外部サイトへのリンクボタン
 st.write('このプログラムを作る際に関係した方々の詳しい情報(個人情報は、おおよそありません。)')
 st.write('https://app-d0t-1ab0.streamlit.app')
