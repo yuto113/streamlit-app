@@ -31,7 +31,7 @@ st.markdown("""
 
 # タイトルをつける。
 st.title('計算問題アプリ')
-st.write("ver.3.8β")
+st.write("ver.3.9β")
 
 # セレクトボックスで問題の種類を選択
 problem_type = st.selectbox(
@@ -62,6 +62,7 @@ if st.button('タイムアタックモード'):
     st.session_state.start_time = time.time()
     st.session_state.problem_generated = False
     st.session_state.correct_answers = 0
+    st.session_state.answer = ''  # 回答欄をリセット
 
 # 問題を出すボタン
 if st.button('計算(けいさん)の問題出題(もんだいしゅつだい)') or st.session_state.get('time_attack', False):
@@ -141,6 +142,7 @@ if st.button('計算(けいさん)の問題出題(もんだいしゅつだい)')
 
         st.session_state.problem_generated = True
         st.session_state.start_time = time.time()
+        st.session_state.answer = ''  # 回答欄をリセット
 
     st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem}</h2>", unsafe_allow_html=True)
 
