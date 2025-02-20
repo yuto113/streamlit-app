@@ -66,6 +66,7 @@ if st.button('タイムアタックモード'):
 
 # 問題を出すボタン
 if st.button('計算(けいさん)の問題出題(もんだいしゅつだい)') or st.session_state.get('time_attack', False):
+    st.session_state.problem_generated = False  # ここでリセット
     if not st.session_state.get('problem_generated', False):
         if problem_type == '繰(く)り上(あ)がりなしの足(た)し算(ざん)':
             while True:
@@ -212,7 +213,7 @@ def show_answer():
                     # 正解したときにランダムなキャラクターの画像を表示
                     characters = ["pikachu_happy.png", "charmander_happy.png", "bulbasaur_happy.png"]
                     character_image = ran.choice(characters)
-                    st.image(character_image, caption="正解です！", use_column_width=True)
+                    st.image(character_image, caption="正解です！", width=200)
 
             st.session_state.problem_generated = False
 
@@ -224,7 +225,7 @@ def show_answer():
                 # 正解したときにランダムなキャラクターの画像を表示
                 characters = ["pikachu_happy.png", "charmander_happy.png", "bulbasaur_happy.png"]
                 character_image = ran.choice(characters)
-                st.image(character_image, caption="正解です！", use_column_width=True)
+                st.image(character_image, caption="正解です！", width=200)
             else:
                 st.error("不正解です！")
 
