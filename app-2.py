@@ -31,7 +31,7 @@ st.markdown("""
 
 # タイトルをつける。
 st.title('計算問題アプリ')
-st.write("ver.3.5※[大アップデート]ver.4.0は、2月22日にアップデート予定")
+st.write("ver.3.9β")
 
 # セレクトボックスで問題の種類を選択
 problem_type = st.selectbox(
@@ -62,22 +62,30 @@ if st.button('タイムアタックモード'):
     st.session_state.start_time = time.time()
     st.session_state.problem_generated = False
     st.session_state.correct_answers = 0
+    st.session_state.answer = ''  # 回答欄をリセット
 
 # 問題を出すボタン
 if st.button('計算(けいさん)の問題出題(もんだいしゅつだい)') or st.session_state.get('time_attack', False):
+    st.session_state.problem_generated = False  # ここでリセット
     if not st.session_state.get('problem_generated', False):
         if problem_type == '繰(く)り上(あ)がりなしの足(た)し算(ざん)':
-            st.session_state.aa = ran.randint(1, 9)
-            st.session_state.bb = ran.randint(1, 9)
+            while True:
+                st.session_state.aa = ran.randint(10, 99)
+                st.session_state.bb = ran.randint(10, 99)
+                if (st.session_state.aa % 10) + (st.session_state.bb % 10) < 10 and (st.session_state.aa // 10) + (st.session_state.bb // 10) < 10:
+                    break
             st.session_state.problem = f"{st.session_state.aa} + {st.session_state.bb}"
         elif problem_type == '繰(く)り上(あ)がりのある足(た)し算(ざん)':
             st.session_state.cc = ran.randint(10, 99)
             st.session_state.dd = ran.randint(10, 99)
             st.session_state.problem = f"{st.session_state.cc} + {st.session_state.dd}"
         elif problem_type == '繰(く)り下(さ)がりなしの引(ひ)き算(ざん)':
-            st.session_state.ee = ran.randint(1, 100)
-            st.session_state.ff = ran.randint(1, 100)
-            st.session_state.problem = f"{max(st.session_state.ee, st.session_state.ff)} - {min(st.session_state.ee, st.session_state.ff)}"
+            while True:
+                st.session_state.ee = ran.randint(10, 99)
+                st.session_state.ff = ran.randint(10, 99)
+                if (st.session_state.ee % 10) >= (st.session_state.ff % 10) and (st.session_state.ee // 10) >= (st.session_state.ff // 10):
+                    break
+            st.session_state.problem = f"{st.session_state.ee} - {st.session_state.ff}"
         elif problem_type == '繰(く)り下(さ)がりのある引(ひ)き算(ざん)':
             st.session_state.gg = ran.randint(10, 99)
             st.session_state.hh = ran.randint(10, 99)
@@ -135,6 +143,7 @@ if st.button('計算(けいさん)の問題出題(もんだいしゅつだい)')
 
         st.session_state.problem_generated = True
         st.session_state.start_time = time.time()
+        st.session_state.answer = ''  # 回答欄をリセット
 
     st.markdown(f"<h2 style='text-align: center;'>{st.session_state.problem}</h2>", unsafe_allow_html=True)
 
@@ -148,7 +157,7 @@ def show_answer():
             st.session_state.ancerb = st.session_state.cc + st.session_state.dd
             correct_answer = st.session_state.ancerb
         elif problem_type == '繰(く)り下(さ)がりなしの引(ひ)き算(ざん)':
-            st.session_state.ancerc = abs(st.session_state.ee - st.session_state.ff)
+            st.session_state.ancerc = st.session_state.ee - st.session_state.ff
             correct_answer = st.session_state.ancerc
         elif problem_type == '繰(く)り下(さ)がりのある引(ひ)き算(ざん)':
             st.session_state.ancerd = abs(st.session_state.gg - st.session_state.hh)
@@ -201,6 +210,10 @@ def show_answer():
             if 'answer' in st.session_state:
                 if str(st.session_state.answer) == str(st.session_state.correct_answer):
                     st.session_state.correct_answers += 1
+                    # 正解したときにランダムなキャラクターの画像を表示
+                    characters = ["pikachu_happy.png", "charmander_happy.png", "bulbasaur_happy.png"]
+                    character_image = ran.choice(characters)
+                    st.image(character_image, caption="正解です！", width=200)
 
             st.session_state.problem_generated = False
 
@@ -209,6 +222,10 @@ def show_answer():
             normalized_answer = unicodedata.normalize('NFKC', st.session_state.answer)
             if str(normalized_answer) == str(st.session_state.correct_answer):
                 st.success("正解です！")
+                # 正解したときにランダムなキャラクターの画像を表示
+                characters = ["pikachu_happy.png", "charmander_happy.png", "bulbasaur_happy.png"]
+                character_image = ran.choice(characters)
+                st.image(character_image, caption="正解です！", width=200)
             else:
                 st.error("不正解です！")
 
@@ -220,7 +237,5 @@ if st.button('こたえ'):
     show_answer()
 
 # 外部サイトへのリンクボタン
-if st.button('外部サイトへ移動(現在準備中ボタンを押しても意味がありません)'):
-    js = "window.open('https://app-2024-5blue0demo.streamlit.app')"  # ここに移動したいURLを入力
-    html = f"<script>{js}</script>"
-    st.markdown(html, unsafe_allow_html=True)
+st.write('このプログラムを作る際に関係した方々の詳しい情報(個人情報は、おおよそありません。)')
+st.write('https://app-d0t-1ab0.streamlit.app')
