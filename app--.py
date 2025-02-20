@@ -209,8 +209,10 @@ def show_answer():
             if 'answer' in st.session_state:
                 if str(st.session_state.answer) == str(st.session_state.correct_answer):
                     st.session_state.correct_answers += 1
-                    # 正解したときにピカチュウの画像を表示
-                    st.image("pikachu_happy.png", caption="正解です！", use_column_width=True)
+                    # 正解したときにランダムなキャラクターの画像を表示
+                    characters = ["pikachu_happy.png", "charmander_happy.png", "bulbasaur_happy.png"]
+                    character_image = ran.choice(characters)
+                    st.image(character_image, caption="正解です！", use_column_width=True)
 
             st.session_state.problem_generated = False
 
@@ -219,8 +221,10 @@ def show_answer():
             normalized_answer = unicodedata.normalize('NFKC', st.session_state.answer)
             if str(normalized_answer) == str(st.session_state.correct_answer):
                 st.success("正解です！")
-                # 正解したときにピカチュウの画像を表示
-                st.image("pikachu_happy.png", caption="正解です！", use_column_width=True)
+                # 正解したときにランダムなキャラクターの画像を表示
+                characters = ["pikachu_happy.png", "charmander_happy.png", "bulbasaur_happy.png"]
+                character_image = ran.choice(characters)
+                st.image(character_image, caption="正解です！", use_column_width=True)
             else:
                 st.error("不正解です！")
 
