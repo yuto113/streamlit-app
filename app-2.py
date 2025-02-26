@@ -31,7 +31,7 @@ st.markdown("""
 
 # タイトルをつける。
 st.title('計算問題アプリ')
-st.write("ver.3.9※[使用不可]時刻:2月23日05:00~14:00  理由:アップデートのため")
+st.write("ver.4.0")
 
 # セレクトボックスで問題の種類を選択
 problem_type = st.selectbox(
@@ -235,7 +235,3 @@ answer = st.text_input('答えを入力してください', key='answer')
 # 答えを表示するボタン
 if st.button('こたえ'):
     show_answer()
-
-# 外部サイトへのリンクボタン
-st.write('このプログラムを作る際に関係した方々の詳しい情報(個人情報は、おおよそありません。)')
-st.write('https://app-d0t-1ab0.streamlit.app')
