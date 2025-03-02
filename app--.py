@@ -28,7 +28,7 @@ st.title('日付と天気を表示するアプリ')
 st.write(f'今日の日付: {today}')
 
 # 天気情報を表示
-city = st.text_input('都市名を入力してください', 'Tokyo')
+city = st.text_input('都市名を入力してください', 'Nagoya')
 if city:
     temperature, description = get_weather(city)
     if temperature is not None:
