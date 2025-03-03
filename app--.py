@@ -10,7 +10,7 @@ today = datetime.today().strftime('%Y-%m-%d')
 def get_weather(city):
     translator = Translator()
     city_en = translator.translate(city, src='ja', dest='en').text
-    api_key = '4ed8711daa86837bebae208dfc828d9e'  # OpenWeatherMapのAPIキーをここに入力
+    api_key = '4ed8711daa86837bebae208dfc828d9e'
     base_url = 'http://api.openweathermap.org/data/2.5/weather?'
     complete_url = base_url + 'q=' + city_en + '&appid=' + api_key + '&units=metric'
     response = requests.get(complete_url)
@@ -38,4 +38,3 @@ if city:
         st.write(f'{city}の天気: {description}, 気温: {temperature}°C')
     else:
         st.write('天気情報を取得できませんでした。')
-        
