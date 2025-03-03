@@ -1,15 +1,15 @@
 import streamlit as st
 from datetime import datetime
 import requests
-from googletrans import Translator
+from translate import Translator
 
 # 日付を取得
 today = datetime.today().strftime('%Y-%m-%d')
 
 # 天気情報を取得する関数
 def get_weather(city):
-    translator = Translator()
-    city_en = translator.translate(city, src='ja', dest='en').text
+    translator = Translator(from_lang='ja', to_lang='en')
+    city_en = translator.translate(city)
     api_key = '4ed8711daa86837bebae208dfc828d9e'
     base_url = 'http://api.openweathermap.org/data/2.5/weather?'
     complete_url = base_url + 'q=' + city_en + '&appid=' + api_key + '&units=metric'
