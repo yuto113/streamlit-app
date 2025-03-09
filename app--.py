@@ -1,7 +1,7 @@
 import streamlit as st
 from datetime import datetime
 import requests
-import deep_translator as GoogleTranslator
+from deep_translator import GoogleTranslator
 
 # 日付を取得
 today = datetime.today().strftime('%Y-%m-%d')
