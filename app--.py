@@ -41,4 +41,3 @@ if city:
         st.write(f'{city}の天気: {description}, 気温: {temperature}°C')
     else:
         st.write('天気情報を取得できませんでした。')
-        
