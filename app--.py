@@ -6,6 +6,17 @@ from deep_translator import GoogleTranslator
 # 日付を取得
 today = datetime.today().strftime('%Y-%m-%d')
 
+# 天気の説明を簡略化する関数
+def simplify_weather_description(description):
+    if 'clear' in description:
+        return '晴れ'
+    elif 'cloud' in description:
+        return 'くもり'
+    elif 'rain' in description or 'drizzle' in description:
+        return '雨'
+    else:
+        return 'その他'
+
 # 天気情報を取得する関数
 def get_weather(city):
     translator = GoogleTranslator(source='auto', target='en')
@@ -21,8 +32,9 @@ def get_weather(city):
         temperature = main['temp']
         description = weather['description']
         
-        # 天気の説明を日本語に翻訳
-        description_ja = GoogleTranslator(source='en', target='ja').translate(description)
+        # 天気の説明を簡略化して日本語に翻訳
+        simplified_description = simplify_weather_description(description)
+        description_ja = GoogleTranslator(source='en', target='ja').translate(simplified_description)
         return temperature, description_ja
     else:
         return None, None
