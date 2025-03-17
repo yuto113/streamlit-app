@@ -22,7 +22,7 @@ def get_weather(city):
         description = weather['description']
         
         # 天気の説明を日本語に翻訳
-        description_ja = translator.translate(description, source='en', target='ja')
+        description_ja = GoogleTranslator(source='en', target='ja').translate(description)
         return temperature, description_ja
     else:
         return None, None
