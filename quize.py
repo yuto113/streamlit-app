@@ -1,4 +1,8 @@
 import streamlit as st
+import openai
+
+# OpenAI APIキーの設定
+openai.api_key = "your_openai_api_key"  # ここにAPIキーを入力してください
 
 # クイズデータ
 quiz_data = {
@@ -20,14 +24,35 @@ quiz_data = {
 st.title("ジャンルごとのクイズ")
 
 # ジャンル選択
-genre = st.selectbox("ジャンルを選んでください", list(quiz_data.keys()))
+genre = st.selectbox("ジャンルを選んでください", list(quiz_data.keys()) + ["AIで生成"])
 
-# 選択されたジャンルのクイズを取得
-quizzes = quiz_data[genre]
+if genre == "AIで生成":
+    # ユーザー入力
+    user_input = st.text_input("クイズのジャンルやキーワードを入力してください")
+    if st.button("クイズを生成"):
+        if user_input:
+            # OpenAI APIを使用してクイズを生成
+            response = openai.Completion.create(
+                engine="text-davinci-003",
+                prompt=f"以下のキーワードに基づいてクイズを作成してください: {user_input}\n"
+                       f"フォーマット: question, answer, meaning",
+                max_tokens=150
+            )
+            generated_quiz = response.choices[0].text.strip().split("\n")
+            for i, line in enumerate(generated_quiz):
+                st.subheader(f"クイズ {i + 1}: {line.split(',')[0]}")
+                if st.button(f"答えを見る ({i + 1})"):
+                    st.write(f"答え: {line.split(',')[1]}")
+                    st.write(f"意味: {line.split(',')[2]}")
+        else:
+            st.warning("キーワードを入力してください！")
+else:
+    # 選択されたジャンルのクイズを取得
+    quizzes = quiz_data[genre]
 
-# クイズを表示
-for i, quiz in enumerate(quizzes):
-    st.subheader(f"クイズ {i + 1}: {quiz['question']}")
-    if st.button(f"答えを見る ({i + 1})"):
-        st.write(f"答え: {quiz['answer']}")
-        st.write(f"意味: {quiz['meaning']}")
+    # クイズを表示
+    for i, quiz in enumerate(quizzes):
+        st.subheader(f"クイズ {i + 1}: {quiz['question']}")
+        if st.button(f"答えを見る ({i + 1})"):
+            st.write(f"答え: {quiz['answer']}")
+            st.write(f"意味: {quiz['meaning']}")
