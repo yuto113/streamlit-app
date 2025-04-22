@@ -89,31 +89,63 @@ quiz_data = {
     ]
 }
 
-# 日付に基づいて問題を取得
-def get_daily_quiz(genre):
-    today = datetime.date.today()
-    end_date = datetime.date(2023, 7, 18)  # 7月18日まで
+# 2025年の祝日リスト（日本の祝日）
+holidays = [
+    datetime.date(2025, 1, 1),   # 元日
+    datetime.date(2025, 1, 13),  # 成人の日
+    datetime.date(2025, 2, 11),  # 建国記念の日
+    datetime.date(2025, 3, 20),  # 春分の日
+    datetime.date(2025, 4, 29),  # 昭和の日
+    datetime.date(2025, 5, 3),   # 憲法記念日
+    datetime.date(2025, 5, 4),   # みどりの日
+    datetime.date(2025, 5, 5),   # 子供の日
+    datetime.date(2025, 7, 21),  # 海の日
+    datetime.date(2025, 8, 11),  # 山の日
+    datetime.date(2025, 9, 15),  # 敬老の日
+    datetime.date(2025, 9, 23),  # 秋分の日
+    datetime.date(2025, 10, 13), # スポーツの日
+    datetime.date(2025, 11, 3),  # 文化の日
+    datetime.date(2025, 11, 23), # 勤労感謝の日
+    datetime.date(2025, 12, 23)  # 天皇誕生日
+]
+
+# 土日・祝日を除いた営業日を計算
+def get_next_business_day(start_date, offset):
+    current_date = start_date
+    business_days = 0
+
+    while business_days < offset:
+        current_date += datetime.timedelta(days=1)
+        # 平日かつ祝日でない場合のみカウント
+        if current_date.weekday() < 5 and current_date not in holidays:
+            business_days += 1
+
+    return current_date
+
+# 日付を計算してすべてのクイズを表示
+def display_all_quizzes(genre):
+    if genre == "科学":
+        start_date = datetime.date(2025, 4, 1)  # 科学のクイズ1を2025年4月1日から開始
+    elif genre == "歴史":
+        start_date = get_next_business_day(datetime.date(2025, 4, 1), 33)  # 歴史は34番目から続ける
+    elif genre == "スポーツ":
+        start_date = get_next_business_day(datetime.date(2025, 4, 1), 33 + len(quiz_data["歴史"]))  # スポーツは歴史の続きから
+
     quizzes = quiz_data[genre]
 
-    if today > end_date:
-        # 7月18日以降は最後の問題を表示
-        return quizzes[-1]
-    else:
-        # 日付に基づいてインデックスを計算
-        index = today.toordinal() % len(quizzes)
-        return quizzes[index]
+    st.subheader(f"{genre}のクイズ一覧")
+    for i, quiz in enumerate(quizzes):
+        quiz_date = get_next_business_day(start_date, i)
+        st.write(f"クイズ {i + 1} ({quiz_date.month}月{quiz_date.day}日): {quiz['question']}")
+        st.write(f"答え: {quiz['answer']}")
+        st.write(f"意味: {quiz['meaning']}")
+        st.write("---")  # 区切り線
 
 # Streamlitアプリ
-st.title("ジャンルごとのクイズ")
+st.title("ジャンルごとのクイズ一覧")
 
 # ジャンル選択
 genre = st.selectbox("ジャンルを選んでください", list(quiz_data.keys()))
 
-# 日付に基づいて問題を取得
-quiz = get_daily_quiz(genre)
-
-# クイズを表示
-st.subheader(f"クイズ: {quiz['question']}")
-if st.button("答えを見る"):
-    st.write(f"答え: {quiz['answer']}")
-    st.write(f"意味: {quiz['meaning']}")
+# すべてのクイズを表示
+display_all_quizzes(genre)
