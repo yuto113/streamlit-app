@@ -99,6 +99,7 @@ holidays = [
     datetime.date(2025, 5, 3),   # 憲法記念日
     datetime.date(2025, 5, 4),   # みどりの日
     datetime.date(2025, 5, 5),   # 子供の日
+    datetime.date(2025, 5, 6),   # 振替休日
     datetime.date(2025, 7, 21),  # 海の日
     datetime.date(2025, 8, 11),  # 山の日
     datetime.date(2025, 9, 15),  # 敬老の日
@@ -125,11 +126,11 @@ def get_next_business_day(start_date, offset):
 # 日付を計算してすべてのクイズを表示
 def display_all_quizzes(genre):
     if genre == "科学":
-        start_date = datetime.date(2025, 4, 1)  # 科学のクイズ1を2025年4月1日から開始
+        start_date = datetime.date(2025, 4, 23)  # 科学のクイズ1を2025年4月23日から開始
     elif genre == "歴史":
-        start_date = get_next_business_day(datetime.date(2025, 4, 1), 33)  # 歴史は34番目から続ける
+        start_date = get_next_business_day(datetime.date(2025, 4, 23), 33)  # 歴史は34番目から続ける
     elif genre == "スポーツ":
-        start_date = get_next_business_day(datetime.date(2025, 4, 1), 33 + len(quiz_data["歴史"]))  # スポーツは歴史の続きから
+        start_date = get_next_business_day(datetime.date(2025, 4, 23), 33 + len(quiz_data["歴史"]))  # スポーツは歴史の続きから
 
     quizzes = quiz_data[genre]
 
