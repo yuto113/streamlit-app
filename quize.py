@@ -137,9 +137,23 @@ def display_all_quizzes(genre):
     st.subheader(f"{genre}のクイズ一覧")
     for i, quiz in enumerate(quizzes):
         quiz_date = get_next_business_day(start_date, i)
-        st.write(f"クイズ {i + 1} ({quiz_date.month}月{quiz_date.day}日): {quiz['question']}")
-        st.write(f"答え: {quiz['answer']}")
-        st.write(f"意味: {quiz['meaning']}")
+        if genre == "スポーツ" and i >= 2:  # スポーツのクイズ1と2以外を赤色にする
+            st.markdown(
+                f"<span style='color:red;'>クイズ {i + 1} ({quiz_date.month}月{quiz_date.day}日): {quiz['question']}</span>",
+                unsafe_allow_html=True
+            )
+            st.markdown(
+                f"<span style='color:red;'>答え: {quiz['answer']}</span>",
+                unsafe_allow_html=True
+            )
+            st.markdown(
+                f"<span style='color:red;'>意味: {quiz['meaning']}</span>",
+                unsafe_allow_html=True
+            )
+        else:
+            st.write(f"クイズ {i + 1} ({quiz_date.month}月{quiz_date.day}日): {quiz['question']}")
+            st.write(f"答え: {quiz['answer']}")
+            st.write(f"意味: {quiz['meaning']}")
         st.write("---")  # 区切り線
 
 # Streamlitアプリ
