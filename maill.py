@@ -56,7 +56,7 @@ def hash_password(password):
 # 本番環境では環境変数や外部設定ファイル、セキュアなデータベースなどを使用し、
 # ユーザー登録時にハッシュ化して保存するのが一般的です。
 # ここでは、事前に各ユーザーのパスワードをハッシュ化した値を設定します。
-# 例: "ゆうと" のパスワードが "yutopass" の場合、hash_password("yutopass") の結果を格納
+# 例: "ゆうと" のパスワードが "yutopass" の場合、hash_password("yutopass") の結果を格納。
 USER_PASSWORDS = {
     "初期設定": hash_password("adminpass"),
     "ゆうと": hash_password("yutopass"),
