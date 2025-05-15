@@ -58,7 +58,7 @@ def hash_password(password):
 # ここでは、事前に各ユーザーのパスワードをハッシュ化した値を設定します。
 # 例: "ゆうと" のパスワードが "yutopass" の場合、hash_password("yutopass") の結果を格納。
 USER_PASSWORDS = {
-    "初期設定": hash_password("adminpass"),
+    "初期設定": hash_password("123"),
     "ゆうと": hash_password("yutopass"),
     "ゆずの": hash_password("yuzunopass"),
     "そら": hash_password("sorapass"),
