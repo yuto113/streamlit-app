@@ -140,7 +140,7 @@ if st.session_state.authenticated_user != selected_user:
         if verify_password(selected_user, password):
             st.session_state.authenticated_user = selected_user
             st.sidebar.success(f"{selected_user}としてログインしました！")
-            st.experimental_rerun() # UIを更新してメインコンテンツを表示
+            st.rerun() # UIを更新してメインコンテンツを表示
         else:
             st.sidebar.error("パスワードが間違っています。")
     # メインコンテンツは表示せず、ログインを促すメッセージを表示
@@ -154,7 +154,7 @@ elif st.session_state.authenticated_user is not None:
     def logout():
         st.session_state.authenticated_user = None
         # selected_user_for_login は現在の選択を保持
-        st.experimental_rerun()
+        st.rerun()
 
     st.sidebar.button("ログアウト", on_click=logout)
 
@@ -186,9 +186,10 @@ elif st.session_state.authenticated_user is not None:
                     # 必要であれば、送信後にフォームをクリア
                     # st.session_state[subject_key] = ""
                     # st.session_state[body_key] = ""
-                    # st.experimental_rerun()
+                    # st.rerun()
                 else:
                     st.error("宛先、件名、本文をすべて入力してください。")
+
 
     with tab2:
         st.header(f"受信箱 ({current_user})")
