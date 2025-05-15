@@ -73,7 +73,7 @@ USER_PASSWORDS = {
     'じゅんや': hash_password("junyapass"),
     'なおき': hash_password("naokipass"),
     'みと': hash_password("mitopass"),
-    'さ・あや': hash_password("saayapass"), 
+    'さ・あや': hash_password("ayapass"), 
     'すずか': hash_password("suzukapass"),
     'ゆうすけ': hash_password("yusukepass"),
     'りせ': hash_password("risepass")
