@@ -159,9 +159,9 @@ elif st.session_state.authenticated_user is not None:
     st.sidebar.button("ログアウト", on_click=logout)
 
     # --- メインコンテンツ (メッセージ機能) ---
-    tab1, tab2 = st.tabs(["メッセージ作成", "受信箱"])
+    tab_message_create, tab_inbox, tab_settings = st.tabs(["メッセージ作成", "受信箱", "設定"]) # 「設定」タブを追加
 
-    with tab1:
+    with tab_message_create:
         st.header(f"メッセージ作成 (from: {current_user})")
         
         receiver_options = [user for user in APP_USERS if user != current_user]
@@ -191,7 +191,7 @@ elif st.session_state.authenticated_user is not None:
                     st.error("宛先、件名、本文をすべて入力してください。")
 
 
-    with tab2:
+    with tab_inbox:
         st.header(f"受信箱 ({current_user})")
         
         received_messages = get_received_messages(current_user)
@@ -211,6 +211,54 @@ elif st.session_state.authenticated_user is not None:
                     st.write(body)
                 if i < len(received_messages) - 1:
                     st.markdown("---")
+
+    with tab_settings:
+        st.header("パスワード変更")
+
+        # ユーザー「ゆうと」の場合の特別メッセージ
+        if current_user == "ゆうと":
+            st.warning(
+                """
+                **管理者向け情報:**
+                セキュリティの観点から、他のユーザーのパスワードを直接表示する機能は提供していません。
+                パスワードは一方向のハッシュ関数で暗号化されており、元のパスワードを復元することはできません。
+                これは、たとえ管理者であっても、第三者がユーザーのパスワードを知ることができないようにするための重要なセキュリティ対策です。
+
+                ユーザーがパスワードを忘れた場合は、管理者が新しい一時パスワードを発行し、
+                ユーザー自身が初回ログイン後に再度パスワードを変更する、といった運用を推奨します。
+                （現在のバージョンでは、管理者によるユーザーパスワードの強制リセット機能は実装されていません。）
+                """
+            )
+
+        current_password_key = f"current_pw_{current_user}_{st.session_state.get(f'pw_form_reset_count_{current_user}', 0)}"
+        new_password_key = f"new_pw_{current_user}_{st.session_state.get(f'pw_form_reset_count_{current_user}', 0)}"
+        confirm_password_key = f"confirm_pw_{current_user}_{st.session_state.get(f'pw_form_reset_count_{current_user}', 0)}"
+
+        with st.form(key=f"change_password_form_{current_user}"):
+            current_password = st.text_input("現在のパスワード", type="password", key=current_password_key)
+            new_password = st.text_input("新しいパスワード", type="password", key=new_password_key)
+            confirm_password = st.text_input("新しいパスワード（確認）", type="password", key=confirm_password_key)
+            submitted = st.form_submit_button("パスワードを変更する")
+
+            if submitted:
+                if not current_password or not new_password or not confirm_password:
+                    st.error("すべてのパスワード欄を入力してください。")
+                elif not verify_password(current_user, current_password):
+                    st.error("現在のパスワードが間違っています。")
+                elif new_password != confirm_password:
+                    st.error("新しいパスワードと確認用パスワードが一致しません。")
+                elif len(new_password) < 6: # 簡単なパスワードポリシーの例
+                    st.error("新しいパスワードは6文字以上にしてください。")
+                else:
+                    # USER_PASSWORDSを直接更新
+                    # 注意: この変更はアプリ実行中のみ有効です。アプリを再起動すると元に戻ります。
+                    USER_PASSWORDS[current_user] = hash_password(new_password)
+                    st.success("パスワードが変更されました。")
+                    st.info("注意: このパスワード変更は、アプリを再起動すると元に戻ります。次回起動時からは、コードに記載された初期パスワードに戻ります。")
+                    # フォームをリセットするためにキーのサフィックスを更新して再実行
+                    st.session_state[f'pw_form_reset_count_{current_user}'] = st.session_state.get(f'pw_form_reset_count_{current_user}', 0) + 1
+                    st.rerun()
+
 else:
     # 初期状態 (どのユーザーも選択/認証されていない場合など)
     st.info("サイドバーからユーザーを選択し、ログインしてください。")
