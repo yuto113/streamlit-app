@@ -38,6 +38,7 @@ st.write('_イベントは、各自の連絡方法に沿って連絡いたしま
 st.write('/管理元への連絡/')
 st.write('_急な変更、お休みに伴って問題が生じる場合がございます。')
 st.write('_何かありましたら、メールサイトをご使用ください。')
-st.write('mail:[https://app-maill.streamlit.app]注意：他の人が(このなかの人)見る可能性があります。')
+st.write('mail:[https://app-maill.streamlit.app]')
+st.write('注意：他の人が(このなかの人)見る可能性があります。')
 
 # st.write('昼のゲームは終了いたしました。ありがとうございました！')
